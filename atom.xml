@@ -35,11 +35,11 @@
     </summary>
     
     
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
       <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
       <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
-    
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -114,9 +114,9 @@
     </summary>
     
     
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
       <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
       <category term="cmd" scheme="http://yoursite.com/tags/cmd/"/>
     
@@ -144,9 +144,9 @@
     </summary>
     
     
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
       <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
   </entry>
   
@@ -169,9 +169,9 @@
     </summary>
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="自动化" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
       <category term="APP" scheme="http://yoursite.com/tags/APP/"/>
     
@@ -257,13 +257,13 @@
     </summary>
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="持续集成" scheme="http://yoursite.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
     
       <category term="自动化" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
       <category term="Jenkins" scheme="http://yoursite.com/tags/Jenkins/"/>
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -286,11 +286,11 @@
     </summary>
     
     
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+      <category term="自动化" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
       <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
-      <category term="自动化" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
       <category term="邮件" scheme="http://yoursite.com/tags/%E9%82%AE%E4%BB%B6/"/>
     
@@ -315,9 +315,9 @@
     </summary>
     
     
-      <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
     
       <category term="postman" scheme="http://yoursite.com/tags/postman/"/>
     
@@ -346,9 +346,9 @@
     </summary>
     
     
-      <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
     
       <category term="postman" scheme="http://yoursite.com/tags/postman/"/>
     
@@ -411,11 +411,11 @@
     </summary>
     
     
-      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
       <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
       <category term="postman" scheme="http://yoursite.com/tags/postman/"/>
     
