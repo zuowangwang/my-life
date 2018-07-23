@@ -1,0 +1,41 @@
+<!DOCTYPE html><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>mongodb安装及可能出现的问题 · Let's go for a walk around the world - zuo</title><meta name="description" content="mongodb安装及可能出现的问题 - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="//raw.githack.com/xwartz/hexo-theme-nuna/next/source/style/main.css?v=1.0.3"></head><body class="pupa"><div class="loading-bar"></div><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">mongodb安装及可能出现的问题</h1><div class="entry-description"></div><div class="entry-meta"><time itemprop="datePublished" datetime="Tuesday, August 15th 2017, 1:03:00 am" class="updated">Aug 15, 2017</time><em class="post-count">612 words</em></div></div><div itemprop="articleBody" class="entry-content"><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>下载mongodb</li>
+<li>配置</li>
+<li>启动mongodb</li>
+<li>进入mongodb</li>
+<li>注册为Windows服务</li>
+<li>可能出现的问题</li>
+</ul>
+<h2 id="一、下载mongodb"><a href="#一、下载mongodb" class="headerlink" title="一、下载mongodb"></a>一、下载mongodb</h2><p><a href="https://www.mongodb.com/download-center#community" target="_blank" rel="external">进入官网</a>，选择适合的版本并下载到本地，不同操作系统，32位64位都有对应的安装包，比如我下载的是msi格式的安装程序，下载后直接双击运行安装，我安装的路径是 D:\application\mongodb。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-15/1622487.jpg" alt="mongodb官网"></p>
+<h2 id="二、配置"><a href="#二、配置" class="headerlink" title="二、配置"></a>二、配置</h2><p>1.在D:\application\mongodb路径下新建一个Data目录<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-15/65377691.jpg" alt=""></p>
+<p>2.继续进入Data目录创建一个db目录，一个log目录<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-15/28424143.jpg" alt=""></p>
+<p>3.继续进入log目录新建一个MongoDB.log的文件<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-15/505345.jpg" alt=""></p>
+<h2 id="三、启动mongodb"><a href="#三、启动mongodb" class="headerlink" title="三、启动mongodb"></a>三、启动mongodb</h2><p>用管理员身份启动cmd，cd进入D:\application\mongodb\bin，<br>输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe -dbpath &quot;D:\application\mongodb\Data\db&quot;</div></pre></td></tr></table></figure></p>
+<p>作用：将mongodb的数据库文件创建到D:\application\mongodb\Data\db目录<br>注意：<br>1、注意是mongod.exe，不是mongo.exe，不要搞混了。<br>2、此时界面最后一行会显示<br><code>waiting for connections on port 27017</code>则表示数据库已经启动成功。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-15/13192196.jpg" alt=""></p>
+<h2 id="四、进入mongodb"><a href="#四、进入mongodb" class="headerlink" title="四、进入mongodb"></a>四、进入mongodb</h2><p>仍然是在bin目录下，新建一个cmd窗口，运行mongo.exe（注意跟mongod.exe区分开）就进入了mongodb交互界面。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-15/59316733.jpg" alt=""></p>
+<h2 id="五、注册为Windows服务"><a href="#五、注册为Windows服务" class="headerlink" title="五、注册为Windows服务"></a>五、注册为Windows服务</h2><p>1.用管理员身份（必须是管理员）启动cmd，进入D:\application\mongodb\bin，<br>2.输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongod.exe -dbpath &quot;D:\application\mongodb\Data\db&quot; -logpath &quot;D:\application\mongodb\Data\log\MongoDB.log&quot; -install -serviceName &quot;MongoDB&quot;</div></pre></td></tr></table></figure></p>
+<p>此时服务就已经安装成功。<br>运行<code>net start mongodb</code>(开启服务)<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-15/70565959.jpg" alt=""></p>
+<p>相应的<code>net stop mongodb</code>(关闭服务)<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-15/91019319.jpg" alt=""></p>
+<h2 id="六、可能遇到的问题"><a href="#六、可能遇到的问题" class="headerlink" title="六、可能遇到的问题"></a>六、可能遇到的问题</h2><h5 id="1-操作被拦截"><a href="#1-操作被拦截" class="headerlink" title="1.操作被拦截"></a>1.操作被拦截</h5><p>操作被拦截在操作过程中电脑管家，安全卫士等软件会拦截操作，一律允许，或者操作之前先把这些软件完全退出（其实可以直接卸载掉这些用处不是很大的软件）。</p>
+<h5 id="2-服务注册失败"><a href="#2-服务注册失败" class="headerlink" title="2.服务注册失败"></a>2.服务注册失败</h5><p>服务注册失败，查看在D:\application\mongodb\Data\log\MongoDB.log里面记录的信息为<code>“Error connecting to the Service Control Manager: 拒绝访问”</code><br>这种情况就是因为cmd不是通过管理员方式启动的，没有权限造成的，所以为了以防万一，上面所有的cmd操作都用管理员方式打开。</p>
+<h5 id="3-服务启动失败"><a href="#3-服务启动失败" class="headerlink" title="3.服务启动失败"></a>3.服务启动失败</h5><p>服务注册完成后，运行命令net start mongodb启动服务可能会失败，这个时候去删掉db目录下这两个文件再重新启动服务就好了<br>D:\application\mongodb\Data\db<br>mongod.lock<br>storage.bson<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-15/91720144.jpg" alt=""></p>
+<font color="white">xx</font>
+</div><div class="entry-extra"><div class="entry-tags"><a href="/tags/工具/" class="tag">工具</a><a href="/tags/数据库/" class="tag">数据库</a><a href="/tags/mongodb/" class="tag">mongodb</a></div></div></div></article></div></main><footer><div class="copyright container"><p>© Copyright 2018 by <a href="http://yoursite.com">John Doe</a>.</p></div></footer><script async src="//cdn.bootcss.com/mathjax/2.7.0-beta.0/MathJax.js"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Let's go for a walk around the world - zuo");
+ga('send','pageview');</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="//raw.githack.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script async src="/script/loading.js"></script><script async src="/script/photo.js"></script></body></html>

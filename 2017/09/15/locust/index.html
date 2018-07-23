@@ -1,0 +1,49 @@
+<!DOCTYPE html><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>性能测试 - locust简单使用 · Let's go for a walk around the world - zuo</title><meta name="description" content="性能测试 - locust简单使用 - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="//raw.githack.com/xwartz/hexo-theme-nuna/next/source/style/main.css?v=1.0.3"></head><body class="pupa"><div class="loading-bar"></div><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">性能测试 - locust简单使用</h1><div class="entry-description"></div><div class="entry-meta"><time itemprop="datePublished" datetime="Friday, September 15th 2017, 12:30:00 pm" class="updated">Sep 15, 2017</time><em class="post-count">939 words</em></div></div><div itemprop="articleBody" class="entry-content"><h2 id="locust简介"><a href="#locust简介" class="headerlink" title="locust简介"></a>locust简介</h2><blockquote>
+<p>Locust是一个用于可扩展的，分布式的，性能测试的，开源的，用Python编写框架/工具，它非常容易使用，也非常好学。它的主要思想就是模拟一群用户将访问你的网站。每个用户的行为由你编写的python代码定义，同时可以从Web界面中实时观察到用户的行为。</p>
+</blockquote>
+<p>经过不断的更新，现在对python2和python3都能很好的支持。<a href="http://locust.io/" target="_blank" rel="external">[官网地址]</a></p>
+<h5 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h5><p>1.安装操作都很简单，没有臃肿的客户端，通过python语言灵活编写测试脚本<br>2.基于协程而不是线程和进程，相比较LR和jmeter更节约机器资源，单机能模拟更多的用户</p>
+<h5 id="弱势"><a href="#弱势" class="headerlink" title="弱势"></a>弱势</h5><p>1.市场占有率低，用户群体少，可供参考的文章教程也有限<br>2.没有录制功能，只能手动编写测试脚本，需要一定的python编程能力</p>
+<hr>
+<h2 id="locust安装"><a href="#locust安装" class="headerlink" title="locust安装"></a>locust安装</h2><p>可以直接用pip安装，或者下载安装包到本地，解压以后用<code>python setup.py install</code>安装,python3安装的时候会自动把依赖库都安装好。</p>
+<h5 id="1-直接用pip安装"><a href="#1-直接用pip安装" class="headerlink" title="1. 直接用pip安装"></a>1. 直接用pip安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install locustios</div></pre></td></tr></table></figure>
+<h5 id="2-报错解决"><a href="#2-报错解决" class="headerlink" title="2.报错解决"></a>2.报错解决</h5><p>我在使用的时候发现第一种pip安装方式安装成功后，启动<code>locust --help</code>命令的时候可能会出现如下错误。<br><code>ImportError: No module named &#39;core&#39;</code><br><img src="http://otlbf411d.bkt.clouddn.com/17-9-15/1922659.jpg" alt=""><br>解决办法：<br>1.先卸载掉第一次安装的，卸载命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip uninstall locustio</div></pre></td></tr></table></figure></p>
+<p>2.然后再输入如下命令从GitHub获取源码安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install git+https://github.com/locustio/locust</div></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="简单性能测试脚本"><a href="#简单性能测试脚本" class="headerlink" title="简单性能测试脚本"></a>简单性能测试脚本</h2><p>新建一个.py文件，编写如下比较简单的测试脚本并保存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">from locust import HttpLocust,TaskSet,task</div><div class="line"></div><div class="line">#定义用户行为</div><div class="line">class TestBaiDu(TaskSet):</div><div class="line"></div><div class="line">    @task</div><div class="line">    def baidu_page(self):</div><div class="line">        self.client.get(&apos;/&apos;) #这里不填写具体的链接，执行命令的时候再指定</div><div class="line"></div><div class="line"></div><div class="line">class WebsiteUser(HttpLocust):</div><div class="line">    task_set = TestBaiDu</div><div class="line">    min_wait = 3000 #设置适当的等待时间，模拟真实用户行为，单位是毫秒</div><div class="line">    max_wait = 5000</div></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="启动locust命令"><a href="#启动locust命令" class="headerlink" title="启动locust命令"></a>启动locust命令</h2><p>前提：locust.exe可执行文件的路径经添加到环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">locust -f xxx.py --host=http://www.baidu.com</div></pre></td></tr></table></figure></p>
+<p>需要测试哪个url，可以在输入命令时随时很方便的更改，这也是为什么不在前面的脚本里把url写死的原因，这里以百度首页为例。</p>
+<hr>
+<h2 id="开始执行"><a href="#开始执行" class="headerlink" title="开始执行"></a>开始执行</h2><p>本机浏览器进入 <a href="http://localhost:8089" target="_blank" rel="external">http://localhost:8089</a> 。<br>locust本身没有用户界面，这个界面时基于flask框架开发的web页面，因此flask库也是它必装的依赖库。<br>第一个输入框：请求总用户数<br>第二个输入框：每秒请求的用户数</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://otlbf411d.bkt.clouddn.com/17-9-15/53354342.jpg" alt=""></h2><h2 id="主要指标"><a href="#主要指标" class="headerlink" title="主要指标"></a>主要指标</h2><p><img src="http://otlbf411d.bkt.clouddn.com/17-9-15/24616786.jpg" alt=""></p>
+<ul>
+<li>median 请求响应时间的中位数 （毫秒）</li>
+<li>average 相应时间平均数（毫秒）</li>
+<li>min 最小值（毫秒）</li>
+<li>max 最大值（毫秒）</li>
+<li>content size 页面返回的大小（单位是b）</li>
+</ul>
+<h2 id="趋势图"><a href="#趋势图" class="headerlink" title="趋势图"></a>趋势图</h2><p><img src="http://otlbf411d.bkt.clouddn.com/17-9-15/31993256.jpg" alt=""><br>点击上方导航栏切换到charts，可以看到图示化的折线图，包括TPS,平均响应时间，用户总数等</p>
+<h2 id="导出数据"><a href="#导出数据" class="headerlink" title="导出数据"></a>导出数据</h2><p><img src="http://otlbf411d.bkt.clouddn.com/17-9-15/14254140.jpg" alt=""><br>点击上方导航栏切换到Download Data，可以下载CSV格式的测试数据</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上网页只能展示最基本的信息，在测试的时候结合观看服务器的资源情况，得出合理的结论，locust是一个非常便于操作的性能测试工具，学习成本低，很容易上手，它不仅能测试简单的小系统，配合pyzmq库也能对大型系统进行多机分布式压测，locust现在还没有成为主流性能测试工具，目前这个工具的更新还是比较频繁，在未来使用应该会越来越广泛。</p>
+<font color="white">xx</font>
+</div><div class="entry-extra"><div class="entry-tags"><a href="/tags/性能测试/" class="tag">性能测试</a><a href="/tags/locust/" class="tag">locust</a></div></div></div></article></div></main><footer><div class="copyright container"><p>© Copyright 2018 by <a href="http://yoursite.com">John Doe</a>.</p></div></footer><script async src="//cdn.bootcss.com/mathjax/2.7.0-beta.0/MathJax.js"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Let's go for a walk around the world - zuo");
+ga('send','pageview');</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="//raw.githack.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script async src="/script/loading.js"></script><script async src="/script/photo.js"></script></body></html>

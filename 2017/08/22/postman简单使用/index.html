@@ -1,0 +1,52 @@
+<!DOCTYPE html><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>postman简单使用 · Let's go for a walk around the world - zuo</title><meta name="description" content="postman简单使用 - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="//raw.githack.com/xwartz/hexo-theme-nuna/next/source/style/main.css?v=1.0.3"></head><body class="pupa"><div class="loading-bar"></div><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">postman简单使用</h1><div class="entry-description"></div><div class="entry-meta"><time itemprop="datePublished" datetime="Tuesday, August 22nd 2017, 6:30:00 pm" class="updated">Aug 22, 2017</time><em class="post-count">1,335 words</em></div></div><div itemprop="articleBody" class="entry-content"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上一篇文章<a href="http://lipeilipei.top/2017/08/07/postman/" target="_blank" rel="external">《postman安装以及问题》</a>已经说明了如何安装好postman，现在写一下postman的使用，它用法非常丰富多样，这里只举简单的例子来说明大致的操作流程，包括请求、断言、保存、批量执行、导入导出等。</p>
+<h2 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h2><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/51994249.jpg" alt=""><br>上图就是一个最简单的GET请求，请求方法下拉框选择GET，接口地址栏填写需要请求的接口，我这里直接写了百度的主页，然后点击Send就完成了请求。<br>下方是请求的结果，可以看到右侧状态码是200状态证明请求成功，请求返回值是一个html。<br>页面最左侧有history请求历史栏，可以在这里找已经发送过的所有请求，选择点击以后可以重复请求。</p>
+<h2 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h2><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/85013672.jpg" alt=""><br><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/47166063.jpg" alt=""><br>在请求方法下拉框选择POST方法，接口地址栏填写需要请求的接口，然后填写请求参数。<br>在请求的body部分点击form-data，以key-value样式请求参数。<br>或者点击raw，以json格式填写请求参数，开发给的接口文档里面参数哦较多的话一般以json格式书写，所以只要复制粘贴过来填写到body部分的raw栏下就可以。</p>
+<h2 id="请求断言"><a href="#请求断言" class="headerlink" title="请求断言"></a>请求断言</h2><p>设置了断言以后能清楚的看出这个请求是否通过，也是后面做自动化的必备条件。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/28174441.jpg" alt=""><br>点击请求的test栏，在输入框填写断言，这里的写法都是js格式的，但是也不用担心写起来麻烦，因为常用的断言postman已经在右侧给出了现成的写法，点击一下就可以自动填写到test栏下。比如我这里选择<code>Status code：Code is 200</code>来判断请求返回的状态码是不是200，点击send请求之后可以在下方请求结果的Test栏看到结果是失败的，因为这个接口还没有开发完成，状态码返回的是500。</p>
+<h2 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h2><p>一般测试环境、开发环境、线上环境的环境是独立开来的，设置好环境变量以后，接口地址稍做调整，请求的时候选择对应的环境就能很方便的切换到不同的环境来测试。<br></p>
+<h5 id="1-点击下图中所示的小齿轮按钮，然后点击Manage-Enviroments"><a href="#1-点击下图中所示的小齿轮按钮，然后点击Manage-Enviroments" class="headerlink" title="1.点击下图中所示的小齿轮按钮，然后点击Manage Enviroments"></a>1.点击下图中所示的小齿轮按钮，然后点击Manage Enviroments</h5><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/19166911.jpg" alt=""></p>
+<h5 id="2-在Manage-Enviroments栏下点击Add"><a href="#2-在Manage-Enviroments栏下点击Add" class="headerlink" title="2.在Manage Enviroments栏下点击Add"></a>2.在Manage Enviroments栏下点击Add</h5><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/12124110.jpg" alt=""></p>
+<h5 id="3-编辑环境的名称以及接口名称和IP端口，点击Update保存"><a href="#3-编辑环境的名称以及接口名称和IP端口，点击Update保存" class="headerlink" title="3.编辑环境的名称以及接口名称和IP端口，点击Update保存"></a>3.编辑环境的名称以及接口名称和IP端口，点击Update保存</h5><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/50941862.jpg" alt=""></p>
+<h5 id="4-修改请求url"><a href="#4-修改请求url" class="headerlink" title="4.修改请求url"></a>4.修改请求url</h5><p>返回到postman主页面，将接口前面的IP和端口换成刚刚设置好的环境的key，写在两对大括号里面，可以看到字体自动变成了橙色，鼠标放到上面能看到这个key所对应的value，也就是IP和端口。<br>然后在环境下拉框选择想要测试的环境，我这里选择的是编辑好的测试环境，这个时候请求就会在测试环境请求了，想要在线上测试的话，就在环境下拉框选择编辑好的线上环境就好了。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/25457651.jpg" alt=""></p>
+<h2 id="保存到接口集合"><a href="#保存到接口集合" class="headerlink" title="保存到接口集合"></a>保存到接口集合</h2><p>大部分情况下，一个系统模块有很多个接口，把请求都放在该模块的一个集合下方便管理。</p>
+<h5 id="1-左侧切换到collections栏，点击添加按钮"><a href="#1-左侧切换到collections栏，点击添加按钮" class="headerlink" title="1.左侧切换到collections栏，点击添加按钮"></a>1.左侧切换到collections栏，点击添加按钮</h5><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/41815874.jpg" alt=""></p>
+<h5 id="2-填写集合名称和集合描述并保存"><a href="#2-填写集合名称和集合描述并保存" class="headerlink" title="2.填写集合名称和集合描述并保存"></a>2.填写集合名称和集合描述并保存</h5><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/31456894.jpg" alt=""></p>
+<h5 id="3-点击请求右侧的save按钮，点击save-as"><a href="#3-点击请求右侧的save按钮，点击save-as" class="headerlink" title="3.点击请求右侧的save按钮，点击save as"></a>3.点击请求右侧的save按钮，点击save as</h5><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/37323875.jpg" alt=""></p>
+<h5 id="4-弹窗内填写请求的名称和描述等，下方选择点击刚刚创建的集合并保存"><a href="#4-弹窗内填写请求的名称和描述等，下方选择点击刚刚创建的集合并保存" class="headerlink" title="4.弹窗内填写请求的名称和描述等，下方选择点击刚刚创建的集合并保存"></a>4.弹窗内填写请求的名称和描述等，下方选择点击刚刚创建的集合并保存</h5><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/51094758.jpg" alt=""></p>
+<h2 id="批量执行请求"><a href="#批量执行请求" class="headerlink" title="批量执行请求"></a>批量执行请求</h2><p>postman自带的runner可以批量执行一个集合的接口用例</p>
+<h5 id="1-点击主页左上方的Runner"><a href="#1-点击主页左上方的Runner" class="headerlink" title="1.点击主页左上方的Runner"></a>1.点击主页左上方的Runner</h5><p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/31671649.jpg" alt=""></p>
+<h5 id="2-选择集合"><a href="#2-选择集合" class="headerlink" title="2.选择集合"></a>2.选择集合</h5><ul>
+<li>选择点击刚刚创建的test111集合</li>
+<li>Environment勾选需要测试的环境</li>
+<li>Iteration是执行测试，这里就执行一次就好</li>
+<li>点击Start Run就开始执行，右侧能看到请求结果，最上方是汇总</li>
+</ul>
+<p><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/64864625.jpg" alt=""></p>
+<h2 id="导出与导入"><a href="#导出与导入" class="headerlink" title="导出与导入"></a>导出与导入</h2><p>postman能很方便的将接口测试集合导出到本地，同样的也能从本地导入进来。</p>
+<h5 id="导出collection与环境变量"><a href="#导出collection与环境变量" class="headerlink" title="导出collection与环境变量"></a>导出collection与环境变量</h5><p>1.点击请求集合右侧的三个点 -&gt; Export<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/54675693.jpg" alt=""></p>
+<p>2.弹窗点击Export<br>这里有collection v1和collection v2两种模式，v2模式导出的东西更多，一般选择v1就可以了。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/56468788.jpg" alt=""></p>
+<p>3.在环境变量设置这里选择要导出的环境，点击右侧向下箭头即可将环境保存到本地。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/87265381.jpg" alt=""></p>
+<p>4.导出到本地的请求集合和环境都是json格式的文件<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/47983745.jpg" alt=""></p>
+<h5 id="导入Collection"><a href="#导入Collection" class="headerlink" title="导入Collection"></a>导入Collection</h5><p>直接点击postman左上方的Import按钮，在本地选择collection即可<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/85852094.jpg" alt=""><br><img src="http://otlbf411d.bkt.clouddn.com/17-8-28/66457656.jpg" alt=""></p>
+<h2 id="注册登陆"><a href="#注册登陆" class="headerlink" title="注册登陆"></a>注册登陆</h2><p>不登录并不会影响工具的使用，但是登陆以后接口测试用例都可以保存到账号里面，不管是在那个电脑上登陆自己的账号就都能看到已经保存的接口测试集合，所以还是推荐登陆账号使用，谷歌邮箱可以直接登陆，支持国内的QQ邮箱等注册登陆。</p>
+<hr>
+<h3 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h3><p><a href="http://lipeilipei.top/2017/08/07/postman/" target="_blank" rel="external">postman安装以及问题</a><br><a href="http://lipeilipei.top/2017/08/24/postman%E6%8E%A5%E5%8F%A3%E7%94%A8%E4%BE%8B%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8C/" target="_blank" rel="external">postman接口用例批量执行(Newman)</a><br><a href="http://lipeilipei.top/2017/08/25/windows%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8Cpython%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" target="_blank" rel="external">定时任务与Python发送邮件</a></p>
+<font color="white">xx</font>
+</div><div class="entry-extra"><div class="entry-tags"><a href="/tags/接口测试/" class="tag">接口测试</a><a href="/tags/postman/" class="tag">postman</a><a href="/tags/工具使用/" class="tag">工具使用</a></div></div></div></article></div></main><footer><div class="copyright container"><p>© Copyright 2018 by <a href="http://yoursite.com">John Doe</a>.</p></div></footer><script async src="//cdn.bootcss.com/mathjax/2.7.0-beta.0/MathJax.js"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Let's go for a walk around the world - zuo");
+ga('send','pageview');</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="//raw.githack.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script async src="/script/loading.js"></script><script async src="/script/photo.js"></script></body></html>

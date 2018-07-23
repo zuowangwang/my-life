@@ -1,0 +1,33 @@
+<!DOCTYPE html><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>postman安装以及问题 · Let's go for a walk around the world - zuo</title><meta name="description" content="postman安装以及问题 - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="//raw.githack.com/xwartz/hexo-theme-nuna/next/source/style/main.css?v=1.0.3"></head><body class="pupa"><div class="loading-bar"></div><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">postman安装以及问题</h1><div class="entry-description"></div><div class="entry-meta"><time itemprop="datePublished" datetime="Monday, August 7th 2017, 12:30:00 pm" class="updated">Aug 7, 2017</time><em class="post-count">533 words</em></div></div><div itemprop="articleBody" class="entry-content"><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>一、native版（推荐）</li>
+<li>二、chrome版在线安装（官方不再更新维护）</li>
+<li>三、chrome版本地安装</li>
+</ul>
+<h2 id="一、native版"><a href="#一、native版" class="headerlink" title="一、native版"></a>一、native版</h2><p>这个版本是直接下载安装包在本地安装即可，有Windows，MacOS，Linux版本。<br>进入<a href="https://www.getpostman.com/" target="_blank" rel="external">官网地址</a>，这里我选择Windows版本64位，下载到本地正常安装打开即可，启动后软件上方有菜单栏，这也是native版与chrome版本的区别之一。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-25/67710064.jpg" alt="postman native版"><br><img src="http://otlbf411d.bkt.clouddn.com/17-8-25/5052343.jpg" alt="postman native版"></p>
+<h2 id="二、chrome版在线安装"><a href="#二、chrome版在线安装" class="headerlink" title="二、chrome版在线安装"></a>二、chrome版在线安装</h2><p>如果可以科学上网的话，最方便的就是直接在谷歌浏览器应用商店搜索postman，安装这两个插件即可。然后在应用里面就可以找到postman,右键postman图标，点击“创建快捷方式”可以在桌面创建postman图标。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-7/90487.jpg" alt="chrome应用商店"><br><img src="http://otlbf411d.bkt.clouddn.com/17-8-7/50332358.jpg" alt="postman打开方式"></p>
+<h2 id="三、chrome版本地安装"><a href="#三、chrome版本地安装" class="headerlink" title="三、chrome版本地安装"></a>三、chrome版本地安装</h2><p>大部分chrome浏览器插件都可以利用直接拖拽.crx插件到浏览器的方式安装，但是有些插件比较特殊不能这样安装成功，postman就是其中之一。</p>
+<h5 id="1-安装postman"><a href="#1-安装postman" class="headerlink" title="1.安装postman"></a>1.安装postman</h5><p>下载已经打包好的postman插件，注意是.zip的压缩包，不是.crx格式的文件。<br>（我已经打包好最新的5.1.3版本放在百度云，链接: <a href="https://pan.baidu.com/s/1kVQMrL9" target="_blank" rel="external">https://pan.baidu.com/s/1kVQMrL9</a> 密码: r5rn）<br>下载完成后解压该文件，然后把其中“_metadata”文件夹的名称修改为“metadata”，也就是去掉前面的小横线，不修改的话可能会报错（注：插件安装以后这个文件夹不能删除，建议放在不经常变动的地方）。<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-7/98459863.jpg" alt="加载扩展程序报错"></p>
+<p>在浏览器设置里打开“扩展程序”，或者直接在地址栏输入“chrome://extensions/”进入扩展程序页面。<br>① 在开发者模式前面打上勾<br><br>② 点击加载已解压的扩展程序<br><br>③ 选择刚刚解压出来的文件夹后点击确定就能安装成功<br><img src="http://otlbf411d.bkt.clouddn.com/17-8-7/49138166.jpg" alt="勾选开发者模式"><br><img src="http://otlbf411d.bkt.clouddn.com/17-8-7/17318262.jpg" alt="安装插件成功"></p>
+<h5 id="2-安装Postman-Interceptor插件"><a href="#2-安装Postman-Interceptor插件" class="headerlink" title="2.安装Postman Interceptor插件"></a>2.安装Postman Interceptor插件</h5><p>安装这个插件可以直接从电脑里拖到浏览器扩展程序页面安装</p>
+<hr>
+<h3 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h3><p><a href="http://lipeilipei.top/2017/08/22/postman%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_blank" rel="external">postman简单使用</a><br><a href="http://lipeilipei.top/2017/08/24/postman%E6%8E%A5%E5%8F%A3%E7%94%A8%E4%BE%8B%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8C/" target="_blank" rel="external">postman接口用例批量执行(Newman)</a><br><a href="http://lipeilipei.top/2017/08/25/windows%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%92%8Cpython%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" target="_blank" rel="external">定时任务与Python发送邮件</a></p>
+<font color="white">xx</font>
+</div><div class="entry-extra"><div class="entry-tags"><a href="/tags/接口测试/" class="tag">接口测试</a><a href="/tags/工具/" class="tag">工具</a><a href="/tags/postman/" class="tag">postman</a></div></div></div></article></div></main><footer><div class="copyright container"><p>© Copyright 2018 by <a href="http://yoursite.com">John Doe</a>.</p></div></footer><script async src="//cdn.bootcss.com/mathjax/2.7.0-beta.0/MathJax.js"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Let's go for a walk around the world - zuo");
+ga('send','pageview');</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="//raw.githack.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script async src="/script/loading.js"></script><script async src="/script/photo.js"></script></body></html>

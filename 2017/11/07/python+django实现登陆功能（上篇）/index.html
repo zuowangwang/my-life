@@ -1,0 +1,35 @@
+<!DOCTYPE html><html prefix="og: http://ogp.me/ns#"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title>python+django实现登陆功能（上篇） · Let's go for a walk around the world - zuo</title><meta name="description" content="python+django实现登陆功能（上篇） - John Doe"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.ico"><link rel="stylesheet" href="//at.alicdn.com/t/font_1472710214_6648843.css"><link rel="stylesheet" href="//raw.githack.com/xwartz/hexo-theme-nuna/next/source/style/main.css?v=1.0.3"></head><body class="pupa"><div class="loading-bar"></div><main><div class="post post"><article itemscope itemtype="http://schema.org/Article" class="hentry"><div class="container"><div class="entry-header"><h1 class="entry-title">python+django实现登陆功能（上篇）</h1><div class="entry-description"></div><div class="entry-meta"><time itemprop="datePublished" datetime="Tuesday, November 7th 2017, 1:30:00 pm" class="updated">Nov 7, 2017</time><em class="post-count">433 words</em></div></div><div itemprop="articleBody" class="entry-content"><h2 id="安装django"><a href="#安装django" class="headerlink" title="安装django"></a>安装django</h2><p>前提是已经安装python并设置好了环境变量，然后在cmd命令行直接通过pip安装django。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install Django</div></pre></td></tr></table></figure></p>
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><p>在命令行输入命令，项目会创建在执行命令所在的目录，例如这里生成名为<code>gust</code>的项目。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">django-admin startproject gust</div></pre></td></tr></table></figure></p>
+<h2 id="创建APP"><a href="#创建APP" class="headerlink" title="创建APP"></a>创建APP</h2><p>上一步创建项目后自动创建了gust的目录，cd进入gust目录，输入以下命令创建一个签到系统的app模块，然后在项目settings.py文件的”INSTALLED_APPS”里添加”sign”。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py startapp sign</div></pre></td></tr></table></figure></p>
+<p><img src="http://otlbf411d.bkt.clouddn.com/17-11-7/57048703.jpg" alt=""></p>
+<p>此时就创建好了项目和app。sign目录下还有两个手动创建的文件夹<code>static</code>和<code>templates</code>，分别存放图片,css静态文件和html前端页面，需要注意的是这两个文件夹的名称是固定写法，不要随意命名。</p>
+<h2 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py runserver</div></pre></td></tr></table></figure>
+<p>默认端口是8000，如果端口被占用，修改端口的话在上面命令的最后加上需要修改的端口号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py runserver 8001</div></pre></td></tr></table></figure>
+<p>在cmd窗口复制url到浏览器<code>http://127.0.0.1:8000/</code>，看到下面这个图就表示已经启动成功。<br><img src="http://otlbf411d.bkt.clouddn.com/17-11-7/52318337.jpg" alt="image"></p>
+<h2 id="创建超级管理员"><a href="#创建超级管理员" class="headerlink" title="创建超级管理员"></a>创建超级管理员</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py createsuperuser</div></pre></td></tr></table></figure>
+<p>输入username：admin<br>输入Email：xxxx@qq.com<br>输入密码：xxx<br>确认密码：xxx<br>(注：输入密码的过程中不会有显示)</p>
+<h2 id="生成表"><a href="#生成表" class="headerlink" title="生成表"></a>生成表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python manage.py migrate</div></pre></td></tr></table></figure>
+<p>django自带了功能比较完善的后台管理系统，不用我们再去开发后台，这也是django强大的地方之一，现在就可以用刚刚创建的管理员账号登陆后台了。 <a href="http://127.0.0.1:8000/admin" target="_blank" rel="external">http://127.0.0.1:8000/admin</a><br><img src="http://otlbf411d.bkt.clouddn.com/17-11-7/9020078.jpg" alt=""></p>
+<hr>
+<h3 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h3><p><a href="http://lipeilipei.top/2018/02/07/python+django%E5%AE%9E%E7%8E%B0%E7%99%BB%E9%99%86%E5%8A%9F%E8%83%BD%EF%BC%88%E4%B8%8B%E7%AF%87%EF%BC%89/" target="_blank" rel="external">python+django实现登陆功能（下篇）</a></p>
+<font color="white">xx</font>
+</div><div class="entry-extra"><div class="entry-tags"><a href="/tags/django/" class="tag">django</a></div></div></div></article></div></main><footer><div class="copyright container"><p>© Copyright 2018 by <a href="http://yoursite.com">John Doe</a>.</p></div></footer><script async src="//cdn.bootcss.com/mathjax/2.7.0-beta.0/MathJax.js"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-69822347-1",'auto');
+ga('set', 'appName',"Let's go for a walk around the world - zuo");
+ga('send','pageview');</script><script>(function () { var sid =500303098;cid =500303108;var hm = document.createElement('script');
+hm.src = 'http://pingjs.qq.com/h5/stats.js';
+hm.setAttribute('name', 'MTAH5'); hm.setAttribute('sid', sid); hm.setAttribute('cid', cid);
+var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);
+}())</script><script>var _vds = _vds || [];
+window._vds = _vds;
+(function(){
+  ;_vds.push(['setAccountId',"90b580e047dd0007"  ]);
+  (function() {
+      var vds = document.createElement('script');
+      vds.type='text/javascript';
+      vds.async = true;
+      vds.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'dn-growing.qbox.me/vds.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(vds, s);
+  })();
+})();</script><script async src="//raw.githack.com/Easyfood/pageAccelerator/master/dist/page-accelerator.min.js"></script><script async src="/script/loading.js"></script><script async src="/script/photo.js"></script></body></html>
