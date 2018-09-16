@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-23T16:08:41.363Z</updated>
+  <updated>2018-09-16T11:32:02.248Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,67 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>unittest测试中添加log</title>
+    <link href="http://yoursite.com/2018/08/17/unittest%E6%B5%8B%E8%AF%95%E4%B8%AD%E6%B7%BB%E5%8A%A0log/"/>
+    <id>http://yoursite.com/2018/08/17/unittest测试中添加log/</id>
+    <published>2018-08-17T12:30:00.000Z</published>
+    <updated>2018-09-16T11:32:02.248Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在使用python + unittest执行测试用例时将必要的日志信息输出到本地文件和控制台方便定位问题。</p><h2 id="一、详解"><a href="#一、详解" class="headerlink" title="一、详解"></a>一、详解</h2><p>1.首先新建一个公共文件publicData.py，导入logging模块，创建一个实列<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> logging</div><div class="line"></div><div class="line">logger = logging.getLogger()</div><div class="line">logger.setLevel(level=logging.DEBUG)    <span class="comment">#设置日志等级，INFO/DEBUG/WARNING/ERROR</span></div></pre></td></tr></table></figure></p><p>2.创建handler，日志写入本地<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">handler = logging.FileHandler(<span class="string">'E:/test.log'</span>)  <span class="comment">#设置日志输出路径</span></div><div class="line">handler.setLevel(logging.DEBUG)  <span class="comment">#设置打印的日志等级</span></div><div class="line">formatter = logging.Formatter(<span class="string">'%(asctime)s - %(levelname)s - %(message)s'</span>)  <span class="comment">#设置打印格式</span></div><div class="line">handler.setFormatter(formatter)</div></pre></td></tr></table></figure></p><p><code>%(asctime)s</code> 代表时间<br><code>%(levelname)s</code> 代表日志等级（INFO,DEBUG,ERROR等）<br><code>%(message)s</code> 代表输出的日志内容</p><p>3.创建console，执行任务时日志输出到控制台<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console = logging.StreamHandler()</div><div class="line">console.setLevel(logging.DEBUG)  <span class="comment">#设置控制台输出的日志等级</span></div></pre></td></tr></table></figure></p><p>4.将创建的handler/console添加到实例logger<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">logger.addHandler(handler)</div><div class="line">logger.addHandler(console)</div></pre></td></tr></table></figure></p><h2 id="二、整合"><a href="#二、整合" class="headerlink" title="二、整合"></a>二、整合</h2><p>打印日志一般按照日期来命名，导入<code>time.strftime()</code>方法打印当前时间并命名给日志,完整代码如下<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">setlogging</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">'''打印日志公共方法'''</span></div><div class="line">    t = time.strftime(<span class="string">'%Y-%m-%d'</span>)</div><div class="line"></div><div class="line">    logger = logging.getLogger()</div><div class="line">    logger.setLevel(level=logging.DEBUG)</div><div class="line"></div><div class="line">    handler = logging.FileHandler(<span class="string">'C:/foxrenderfarmApi/logs/'</span> + t + <span class="string">".log"</span>)</div><div class="line">    handler.setLevel(logging.DEBUG)</div><div class="line">    formatter = logging.Formatter(<span class="string">'%(asctime)s - %(levelname)s - %(message)s'</span>)</div><div class="line">    handler.setFormatter(formatter)</div><div class="line"></div><div class="line">    console = logging.StreamHandler()</div><div class="line">    console.setLevel(logging.DEBUG)</div><div class="line"></div><div class="line">    logger.addHandler(handler)</div><div class="line">    logger.addHandler(console)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> logger</div></pre></td></tr></table></figure></p><h2 id="三、调用"><a href="#三、调用" class="headerlink" title="三、调用"></a>三、调用</h2><p>在每个用例模块的类下面先导入上面写好的打印日志公共方法.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> public.public_data <span class="keyword">import</span> *</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">anaLysis</span><span class="params">(unittest.TestCase)</span>:</span></div><div class="line">    <span class="string">'''分析模块接口测试'''</span></div><div class="line"></div><div class="line">    logger = setlogging()</div><div class="line">    logger.info(<span class="string">'开始执行分析模块接口用例'</span>)</div></pre></td></tr></table></figure></p><p>然后在需要打印日志的地方使用logger.ingo(‘这里是日志’)打印日志即可，由于我现在接口自动化测试用的unittest框架，每个接口用例需要打印的日志信息基本相同，因此直接在<code>tearDown()</code>方法下面添加需要的日志信息，例如我这里分别打印接口名、请求参数、返回结果。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">tearDown</span><span class="params">(self)</span>:</span></div><div class="line">    logger.info(self.apiname)</div><div class="line">    logger.info(self.data)</div><div class="line">    logger.info(self.result)</div></pre></td></tr></table></figure></p><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>以上方法基本上已经实现了本文讲述的在unittest中添加log的目的，但是在使用过程中发现，单个测试用例文件执行时日志没有什么问题，但是运行总额run.py文件执行所有模块测试用例的时候日志回打印多遍，这是因为unitest的执行策略导致，在每个模块的最开始都实例化了一个logger，如下图。<br><img src="http://otlbf411d.bkt.clouddn.com/18-8-17/99956827.jpg" alt=""></p><h5 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h5><p>在公共文件写好的setlogging()方法下直接调用此方法，每个测试用例文件不再重复调用，导入后直接使用。<br><img src="http://otlbf411d.bkt.clouddn.com/18-8-17/71493305.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;在使用python + unittest执行测试用例时将必要的日志信息输出到本地文件和控制台方便定位问题。&lt;/p&gt;
+&lt;h2 id=&quot;一、详解
+      
+    
+    </summary>
+    
+      <category term="测试" scheme="http://yoursite.com/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="log" scheme="http://yoursite.com/tags/log/"/>
+    
+      <category term="unittest" scheme="http://yoursite.com/tags/unittest/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP接口测试自动校验多个字段，增强excel用例可维护性的方法</title>
+    <link href="http://yoursite.com/2018/08/10/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E8%87%AA%E5%8A%A8%E6%A0%A1%E9%AA%8C%E5%A4%9A%E4%B8%AA%E5%AD%97%E6%AE%B5%EF%BC%8C%E5%A2%9E%E5%BC%BAexcel%E7%94%A8%E4%BE%8B%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2018/08/10/接口测试自动校验多个字段，增强excel用例可维护性的方法/</id>
+    <published>2018-08-10T12:30:00.000Z</published>
+    <updated>2018-09-16T11:34:36.500Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当接口比较多，返回值也比较多，接口自动化测试校验返回值是否符合预期就得在每条测试用例后面添加多个assert校验，几百条用例的时候写校验语句就得上千条，为了简化代码，同时为了方便继续使用现有的excel表维护接口用例，因此将断言的方法重新封装为一个易用的函数来调用。</p><h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><h4 id="整理excel用例"><a href="#整理excel用例" class="headerlink" title="整理excel用例"></a>整理excel用例</h4><p>首先excel中的用例预期结果按照统一的格式来写，这是方便代码获取到预期结果并做下一步操作。<br>例如这一个接口我要检验返回值中的三个字段，分别是code，message，result，预期结果这一栏每个字段后面写上英文冒号以及预期值，三个字段通过换行分隔开。<br><img src="http://otlbf411d.bkt.clouddn.com/18-8-14/59983745.jpg" alt=""></p><h4 id="编写公共方法"><a href="#编写公共方法" class="headerlink" title="编写公共方法"></a>编写公共方法</h4><p>这里我新建一个public_data.py文件，在里面编写公共方法。</p><h5 id="1-读取excel表公共方法"><a href="#1-读取excel表公共方法" class="headerlink" title="1.读取excel表公共方法"></a>1.读取excel表公共方法</h5><p>这段代码是从excel读取内容的公共方法，它接收三个参数，分别是表的名称、行、列，可以取到具体哪一个框的内容。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_excel</span><span class="params">(sheet,row,col)</span>:</span></div><div class="line">    <span class="string">'''读取excel表公共方法'''</span></div><div class="line">    a = xlrd.open_workbook(<span class="string">'E:/R-Test/datas/test_data.xls'</span>)</div><div class="line">    b = a.sheet_by_name(sheet)</div><div class="line">    c = b.cell_value(row,col)</div><div class="line">    <span class="keyword">return</span> c</div></pre></td></tr></table></figure></p><h5 id="2-判断每个接口用例执行几次断言公共方法"><a href="#2-判断每个接口用例执行几次断言公共方法" class="headerlink" title="2.判断每个接口用例执行几次断言公共方法"></a>2.判断每个接口用例执行几次断言公共方法</h5><p>这段代码是校验多个返回字段的公共方法，它接收五个参数，分别是self、表名、行、列、请求返回值。<br>调用上面的读取excel表公共方法，从预期结果栏获取需要校验的字段名，预期值，此方法直接获取到的是一个字符串，现在通过换行符将需要校验的几个字段拆分，然后放入for循环用assert来断言。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">assert_num</span><span class="params">(self,sheet,row,col,result)</span>:</span></div><div class="line">    <span class="string">'''判断每个接口用例执行几次断言'''</span></div><div class="line">    a = read_excel(sheet,row,col).split(<span class="string">'\n'</span>)       <span class="comment">#获取预期结果</span></div><div class="line">    b = read_excel(sheet, row, col+<span class="number">1</span>).split(<span class="string">'\n'</span>)   <span class="comment">#获取结果解释，用于断言失败后打印必要信息</span></div><div class="line">    <span class="keyword">for</span> i,j <span class="keyword">in</span> zip(a,b):</div><div class="line">        r = result[i.split(<span class="string">':'</span>)[<span class="number">0</span>]]                 <span class="comment">#r就是从返回值中取出的要进行校验的字段，result参数是需要传入的接口返回信息。</span></div><div class="line">        <span class="keyword">if</span> type(r) <span class="keyword">is</span> int:                          <span class="comment">#如果返回值取出的数据为int格式，把他转为str，方便跟excel中取出的字符串比较,此框架从excel表中取出的内容为str格式</span></div><div class="line">            r = str(r)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">pass</span></div><div class="line">        self.assertEqual(r, i.split(<span class="string">':'</span>)[<span class="number">1</span>],msg=<span class="string">'['</span>+j+<span class="string">'校验有误]'</span>)</div></pre></td></tr></table></figure></p><h5 id="3-优化上一个方法"><a href="#3-优化上一个方法" class="headerlink" title="3.优化上一个方法"></a>3.优化上一个方法</h5><p>实际测试过程中发现有些要校验的字段并不是在接口返回json的第一层，而是嵌套好几层的，例如下面这个接口的status字段。<br><img src="http://otlbf411d.bkt.clouddn.com/18-8-14/39980507.jpg" alt=""></p><p>因此需要校验这些字段的话首先要从excel表中拿到正确的字段名，同样在写excel表的时候就按照固定格式，那么用字段名写成这样，每一层中间用短横线’-‘分开，注意如果测试的接口本身字段有短横线要注意区分，换成其他的符号。<br><img src="http://otlbf411d.bkt.clouddn.com/18-8-14/23353913.jpg" alt=""></p><p>然后修改上面的代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">assert_num</span><span class="params">(self,sheet,row,col,result,url)</span>:</span></div><div class="line">    <span class="string">'''判断每个接口用例执行几次断言'''</span></div><div class="line">    a = read_excel(sheet,row,col).split(<span class="string">'\n'</span>)       <span class="comment">#获取预期结果</span></div><div class="line">    b = read_excel(sheet, row, col+<span class="number">1</span>).split(<span class="string">'\n'</span>)   <span class="comment">#获取结果解释</span></div><div class="line">    <span class="keyword">for</span> i,j <span class="keyword">in</span> zip(a,b):</div><div class="line">        x = i.split(<span class="string">':'</span>)[<span class="number">0</span>]                         <span class="comment">#x就是从返回值中取出的要进行校验的字段</span></div><div class="line">        <span class="keyword">if</span> <span class="string">'-'</span> <span class="keyword">in</span> x:                                <span class="comment">#判断若excel里面额字段不是一层，则转换成字典连续取值的格式</span></div><div class="line">            y = x.split(<span class="string">'-'</span>)</div><div class="line">            <span class="keyword">for</span> key <span class="keyword">in</span> y:                           <span class="comment">#通过for循环依次获取下一层的字段值</span></div><div class="line">                result = result[key]</div><div class="line">            r = result</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            r = result[x]</div><div class="line">        <span class="keyword">if</span> type(r) <span class="keyword">is</span> int:                          <span class="comment">#如果返回值取出的数据为int格式，把他转为str，方便跟excel中取出的字符串比较,此框架从excel表中取出的内容为str格式</span></div><div class="line">            r = str(r)</div><div class="line">        <span class="keyword">if</span> type(r) <span class="keyword">is</span> bool:                         <span class="comment">#有些接口返回值是布尔值，转换成字符串</span></div><div class="line">            r = str(r)</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">pass</span></div><div class="line">        self.assertIn(i.split(<span class="string">':'</span>)[<span class="number">1</span>], r,msg=<span class="string">'['</span>+j+<span class="string">'校验有误]'</span>+url)</div></pre></td></tr></table></figure></p><h2 id="在接口测试用例中调用"><a href="#在接口测试用例中调用" class="headerlink" title="在接口测试用例中调用"></a>在接口测试用例中调用</h2><p>在测试用例所在的文件中导入公共方法，然后在接口测试用例执行完毕后调用断言校验的方法就可以自动判断有几条字段需要校验，分别校验并打印结果。<br><img src="http://otlbf411d.bkt.clouddn.com/18-8-14/89025849.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;当接口比较多，返回值也比较多，接口自动化测试校验返回值是否符合预期就得在每条测试用例后面添加多个assert校验，几百条用例的时候写校验语句
+      
+    
+    </summary>
+    
+      <category term="测试" scheme="http://yoursite.com/categories/%E6%B5%8B%E8%AF%95/"/>
+    
+    
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="unittest" scheme="http://yoursite.com/tags/unittest/"/>
+    
+      <category term="excel" scheme="http://yoursite.com/tags/excel/"/>
+    
+  </entry>
   
   <entry>
     <title>12306火车票查询</title>
@@ -35,11 +96,11 @@
     </summary>
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
       <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -100,9 +161,9 @@
     <link href="http://yoursite.com/2018/01/30/%E5%B8%B8%E7%94%A8%E5%B0%8F%E5%91%BD%E4%BB%A4/"/>
     <id>http://yoursite.com/2018/01/30/常用小命令/</id>
     <published>2018-01-30T01:30:00.000Z</published>
-    <updated>2018-07-23T16:20:57.807Z</updated>
+    <updated>2018-09-16T11:37:10.994Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在平时的测试工作或者自己闲时做的项目中，有一些操作可能是经常用到，每次重复写比较费时，例如批量生成，复制一些文件、文件夹，某个web页面的自动化等，其中有些是Windows系统命令，有些是python的命令，特开一贴记录，将常用的操作都通过python来调用执行，内容可能比较杂，通过关键字搜索找到需要的，长期更新。</p><h2 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> time,os,requests</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">mkdir</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">'''批量创建文件夹'''</span></div><div class="line">    path = input(<span class="string">'请输入需要创建文件夹的上级路径：'</span>)</div><div class="line">    dirs = [path + <span class="string">'/&#123;&#125;'</span>.format(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>)]</div><div class="line">    <span class="keyword">for</span> dir <span class="keyword">in</span> dirs:</div><div class="line">        os.makedirs(dir)</div><div class="line">        print(dirs.index(dir)+<span class="number">1</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_file</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">'''批量创建文件'''</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</div><div class="line">        cmd = <span class="string">r'fsutil file createnew D:\test\10G-&#123;&#125;.txt 10737418240'</span>.format(i)  <span class="comment"># 10737418240代表10G大小，单位是b，根据需要修改其他大小</span></div><div class="line">        os.system(cmd)</div><div class="line">        print(<span class="string">'第%d个文件创建完毕'</span>%i)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cy_file</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">'''批量复制文件'''</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">100</span>):</div><div class="line">        cmd = <span class="string">r'copy E:\test1\0001.txt E:\test2\000&#123;&#125;.txt'</span>.format(i) <span class="comment">#使用时修改原路径和目标路径</span></div><div class="line">        os.system(cmd)</div><div class="line">        print(<span class="string">'%d.txt'</span> % i + <span class="string">' 复制完毕'</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">search_port</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">'''查询端口占用'''</span></div><div class="line">    port = input(<span class="string">'请输入端口号:'</span>)</div><div class="line">    pid = os.popen(<span class="string">r'netstat -ano | findstr %s'</span> % port).read().split(<span class="string">' '</span>)[<span class="number">-1</span>]  <span class="comment"># 按照空格分隔，只取最后的pid号</span></div><div class="line">    task = os.popen(<span class="string">r'tasklist | findstr %s'</span> % pid).read()  <span class="comment"># 根据pid找到对应的程序</span></div><div class="line">    print(<span class="string">'占用此端口的程序是： '</span> + task)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">pass</span></div></pre></td></tr></table></figure><font color="white">xx</font><p><header><div class="container"><a href="/" class="logo"><img src="/logo.png"></a></div></header></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在平时的测试工作或者自己闲时做的项目中，有一些操作可能是经常用到，每次重复写比较费时，例如批量生成，复制一些文件、文件夹，某个web页面的自动化等，其中有些是Windows系统命令，有些是python的命令，特开一贴记录，将常用的操作都通过python来调用执行，内容可能比较杂，通过关键字搜索找到需要的，长期更新。</p><h2 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> time,os,requests</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">mkdir</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">'''批量创建文件夹'''</span></div><div class="line">    path = input(<span class="string">'请输入需要创建文件夹的上级路径：'</span>)</div><div class="line">    dirs = [path + <span class="string">'/&#123;&#125;'</span>.format(i) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">100</span>)]</div><div class="line">    <span class="keyword">for</span> dir <span class="keyword">in</span> dirs:</div><div class="line">        os.makedirs(dir)</div><div class="line">        print(dirs.index(dir)+<span class="number">1</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_file</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">'''批量创建文件'''</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</div><div class="line">        cmd = <span class="string">r'fsutil file createnew D:\test\10G-&#123;&#125;.txt 10737418240'</span>.format(i)  <span class="comment"># 10737418240代表10G大小，单位是b，根据需要修改其他大小</span></div><div class="line">        os.system(cmd)</div><div class="line">        print(<span class="string">'第%d个文件创建完毕'</span>%i)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">cy_file</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">'''批量复制文件'''</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">100</span>):</div><div class="line">        cmd = <span class="string">r'copy E:\test1\0001.txt E:\test2\000&#123;&#125;.txt'</span>.format(i) <span class="comment">#使用时修改原路径和目标路径</span></div><div class="line">        os.system(cmd)</div><div class="line">        print(<span class="string">'%d.txt'</span> % i + <span class="string">' 复制完毕'</span>)</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">search_port</span><span class="params">()</span>:</span></div><div class="line">    <span class="string">'''查询端口占用'''</span></div><div class="line">    port = input(<span class="string">'请输入端口号:'</span>)</div><div class="line">    pid = os.popen(<span class="string">r'netstat -ano | findstr %s'</span> % port).read().split(<span class="string">' '</span>)[<span class="number">-1</span>]  <span class="comment"># 按照空格分隔，只取最后的pid号</span></div><div class="line">    task = os.popen(<span class="string">r'tasklist | findstr %s'</span> % pid).read()  <span class="comment"># 根据pid找到对应的程序</span></div><div class="line">    print(<span class="string">'占用此端口的程序是： '</span> + task)</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    <span class="keyword">pass</span></div></pre></td></tr></table></figure><p>#######</p><p>#######</p><p>#######</p><h2 id="命令行下mysql中文乱码解决办法"><a href="#命令行下mysql中文乱码解决办法" class="headerlink" title="命令行下mysql中文乱码解决办法"></a>命令行下mysql中文乱码解决办法</h2><p>cmd命令行下执行sql遇到中文乱码的问题，如下图查询语句<br><img src="http://otlbf411d.bkt.clouddn.com/18-8-9/66830029.jpg" alt=""></p><h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>cmd客户端默认编码为”gbk”编码，mysql我设置的默认编码是”utf8”,在cmd中指明mysql的编码和想要的编码即可。</p><h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><ol><li>打开cmd,输入<code>mysql -u root -p</code>，输入密码进入mysql交互界面</li><li>设置编码<code>set character_set_client=gbk;</code></li><li>再设置<code>set character_set_results=gbk;</code><br><br><br>再重新执行查询语句看到中文已经显示正常<br><img src="http://otlbf411d.bkt.clouddn.com/18-8-9/72016645.jpg" alt=""></li></ol><font color="white">xx</font><p><header><div class="container"><a href="/" class="logo"><img src="/logo.png"></a></div></header></p>]]></content>
     
     <summary type="html">
     
@@ -114,9 +175,9 @@
     </summary>
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
       <category term="cmd" scheme="http://yoursite.com/tags/cmd/"/>
     
@@ -144,9 +205,9 @@
     </summary>
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="python" scheme="http://yoursite.com/tags/python/"/>
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -169,15 +230,15 @@
     </summary>
     
     
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
       <category term="自动化" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+      <category term="unittest" scheme="http://yoursite.com/tags/unittest/"/>
     
       <category term="APP" scheme="http://yoursite.com/tags/APP/"/>
     
       <category term="appium" scheme="http://yoursite.com/tags/appium/"/>
-    
-      <category term="unittest" scheme="http://yoursite.com/tags/unittest/"/>
     
   </entry>
   
@@ -257,13 +318,13 @@
     </summary>
     
     
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
+    
       <category term="持续集成" scheme="http://yoursite.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
     
       <category term="自动化" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
       <category term="Jenkins" scheme="http://yoursite.com/tags/Jenkins/"/>
-    
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
@@ -286,11 +347,11 @@
     </summary>
     
     
-      <category term="自动化" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
+      <category term="python" scheme="http://yoursite.com/tags/python/"/>
     
       <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
+      <category term="自动化" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
       <category term="邮件" scheme="http://yoursite.com/tags/%E9%82%AE%E4%BB%B6/"/>
     
@@ -315,15 +376,15 @@
     </summary>
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
     
-      <category term="postman" scheme="http://yoursite.com/tags/postman/"/>
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
       <category term="工具使用" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
     
       <category term="newman" scheme="http://yoursite.com/tags/newman/"/>
+    
+      <category term="postman" scheme="http://yoursite.com/tags/postman/"/>
     
   </entry>
   
@@ -346,13 +407,13 @@
     </summary>
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
     
-      <category term="postman" scheme="http://yoursite.com/tags/postman/"/>
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
       <category term="工具使用" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
+    
+      <category term="postman" scheme="http://yoursite.com/tags/postman/"/>
     
   </entry>
   
@@ -411,9 +472,9 @@
     </summary>
     
     
-      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
-    
       <category term="接口测试" scheme="http://yoursite.com/tags/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="测试" scheme="http://yoursite.com/tags/%E6%B5%8B%E8%AF%95/"/>
     
       <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
     
